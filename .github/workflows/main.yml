@@ -15,7 +15,7 @@ jobs:
       - name: Checkout Code with History
         uses: actions/checkout@v5
         with:
-          fetch-depth: 2    # Fetches previous commit (HEAD~1) for git diff
+          fetch-depth: 0    # Fetches full git commit history for git diff
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v6
@@ -26,6 +26,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Create Output Directory
+        run: |
+          mkdir -p output
 
       - name: Start Local Web Server
         run: |
@@ -44,3 +48,4 @@ jobs:
         with:
           name: resumepro-promotional-poster
           path: output/resumepro_promo_poster.jpg
+          if-no-files-found: ignore
